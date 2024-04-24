@@ -1,16 +1,35 @@
-import java.util.regex.Matcher; // Импорт класса Matcher из пакета java.util.regex, который позволяет осуществлять поиск по регулярным выражениям в строках
-import java.util.regex.Pattern; // Импорт класса Pattern из пакета java.util.regex, который представляет собой скомпилированный шаблон регулярного выражения
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
-        String str = "101tf11flb10001"; // Входная строка, в которой будем искать подстроки
-        String pattern = "1[0]+1"; // Шаблон регулярного выражения для поиска подстроки вида 1[0]+1
-        Pattern p = Pattern.compile(pattern); // Компилируем шаблон регулярного выражения в объект Pattern
-        Matcher m = p.matcher(str); // Создаем объект Matcher для работы с строкой
-        System.out.println("Результат:"); // Выводим результаты
 
-        while (m.find()) { // Пока находим подстроки, удовлетворяющие шаблону, выводим их
-            System.out.println(m.group()); // Выводим найденную подстроку
+    static List<String> findSubstrings(String str) {
+        List<String> substrings = new ArrayList<>();
+
+        for (int i = 0; i < str.length(); ++i) {
+            if (str.charAt(i) == '1' && i < str.length() - 2 && str.charAt(i + 1) == '0') {
+                int j = i + 2;
+                while (j < str.length() && str.charAt(j) == '0') {
+                    ++j;
+                }
+                if (j < str.length() && str.charAt(j) == '1') {
+                    substrings.add(str.substring(i, j + 1));
+                }
+                i = j - 1;
+            }
         }
+
+        return substrings;
+    }
+
+    public static void main(String[] args) {
+        String str1 = "101tf11flb10001";
+        String str2 = "101001tf11flb10001";
+
+        List<String> result1 = findSubstrings(str1);
+        List<String> result2 = findSubstrings(str2);
+
+        System.out.println("Результат для первой строки: " + String.join(", ", result1) + ".");
+        System.out.println("Результат для второй строки: " + String.join(", ", result2) + ".");
     }
 }

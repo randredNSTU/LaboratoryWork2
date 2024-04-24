@@ -1,13 +1,29 @@
-require 'uri' # Импортируем модуль для работы с регулярными выражениями
+def find_substrings(str)
+  substrings = []
 
-pattern = /1[0]+1/ # Создаем регулярное выражение для поиска подстроки вида 1[0]+1
+  i = 0
+  while i < str.length
+    if str[i] == '1' && i < str.length - 2 && str[i + 1] == '0'
+      j = i + 2
+      while j < str.length && str[j] == '0'
+        j += 1
+      end
+      if j < str.length && str[j] == '1'
+        substrings.push(str[i..j])
+      end
+      i = j - 1
+    end
+    i += 1
+  end
 
-str = "101tf11flb10001" # Входная строка, в которой будем искать подстроки
-
-matches = str.scan(pattern) # Ищем все совпадения в строке и сохраняем их в массив matches
-
-puts "Результат:" # Выводим результаты
-
-matches.each do |match| # Перебираем найденные подстроки и выводим их
-  puts match
+  substrings
 end
+
+str1 = "101tf11flb10001"
+str2 = "101001tf11flb10001"
+
+result1 = find_substrings(str1)
+result2 = find_substrings(str2)
+
+puts "Результат для первой строки: #{result1.join(', ')}."
+puts "Результат для второй строки: #{result2.join(', ')}."
