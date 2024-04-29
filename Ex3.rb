@@ -1,30 +1,28 @@
+# Функция для переворачивания числа
 def reverse_number(num)
-    reversed = 0
-    temp = num
-    while temp != 0
-        reversed = reversed * 10 + temp % 10
-        temp /= 10
-    end
     result = 0
-    while reversed != 0
-        result = result * 10 + reversed % 10
-        reversed /= 10
+    until num == 0
+        digit = num % 10
+        if result != 0 || digit != 0
+            result = result * 10 + digit
+        end
+        num /= 10
     end
-    return result
+    result
 end
 
-def reverse_and_print_numbers(n, numbers)
+# Функция для переворачивания каждого числа в массиве и вывода без ведущих нулей
+def reverse_and_print_numbers(numbers)
     numbers.each do |num|
         puts reverse_number(num)
     end
 end
 
-print "Введите количество чисел: "
-n = gets.chomp.to_i
+puts "Введите количество чисел:"
+n = gets.chomp.to_i # Запрос количества чисел
 numbers = []
 n.times do |i|
-    print "Введите число ##{i + 1}: "
-    numbers << gets.chomp.to_i
+    puts "Введите число ##{i + 1}:"
+    numbers << gets.chomp.to_i # Ввод каждого числа
 end
-
-reverse_and_print_numbers(n, numbers)
+reverse_and_print_numbers(numbers) # Переворачиваем и выводим числа без ведущих нулей

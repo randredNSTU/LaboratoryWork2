@@ -1,27 +1,28 @@
+// Функция для переворачивания числа
 function reverseNumber(num) {
-    let reversed = 0;
+    let result = 0;
     while (num !== 0) {
-        reversed = reversed * 10 + num % 10;
+        const digit = num % 10;
+        if (result !== 0 || digit !== 0) {
+            result = result * 10 + digit;
+        }
         num = Math.floor(num / 10);
     }
-    let result = '';
-    while (reversed !== 0) {
-        result = (reversed % 10) + result;
-        reversed = Math.floor(reversed / 10);
-    }
-    return parseInt(result);
+    return result;
 }
 
-function reverseAndPrintNumbers(n, numbers) {
-    for (let i = 0; i < n; i++) {
-        console.log(reverseNumber(numbers[i]));
-    }
+// Функция для переворачивания каждого числа в массиве и вывода без ведущих нулей
+function reverseAndPrintNumbers(numbers) {
+    numbers.forEach(num => {
+        console.log(reverseNumber(num));
+    });
 }
 
-let n = parseInt(prompt("Введите количество чисел:"));
-let numbers = [];
+console.log("Введите количество чисел:");
+const n = parseInt(prompt()); // Запрос количества чисел
+const numbers = [];
 for (let i = 0; i < n; i++) {
-    numbers.push(parseInt(prompt("Введите число:")));
+    console.log(`Введите число #${i + 1}:`);
+    numbers.push(parseInt(prompt())); // Ввод каждого числа
 }
-
-reverseAndPrintNumbers(n, numbers);
+reverseAndPrintNumbers(numbers); // Переворачиваем и выводим числа без ведущих нулей

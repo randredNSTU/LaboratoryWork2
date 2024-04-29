@@ -1,38 +1,40 @@
 package main
 
 import (
-  "fmt"
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
 )
 
 func reverseNumber(num int) int {
-  reversed := 0
-  for num != 0 {
-    reversed = reversed*10 + num%10
-    num /= 10
-  }
-  result := 0
-  for reversed != 0 {
-    result = result*10 + reversed%10
-    reversed /= 10
-  }
-  return result
+	result := 0
+	for num != 0 {
+		digit := num % 10
+		if result != 0 || digit != 0 {
+			result = result*10 + digit
+		}
+		num /= 10
+	}
+	return result
 }
 
-func reverseAndPrintNumbers(n int, numbers []int) {
-  for i := 0; i < n; i++ {
-    fmt.Println(reverseNumber(numbers[i]))
-  }
+func reverseAndPrintNumbers(numbers []int) {
+	for _, num := range numbers {
+		fmt.Println(reverseNumber(num))
+	}
 }
 
 func main() {
-  var n int
-  fmt.Print("Введите количество чисел: ")
-  fmt.Scan(&n)
-  numbers := make([]int, n)
-  for i := 0; i < n; i++ {
-    fmt.Printf("Введите число #%d: ", i+1)
-    fmt.Scan(&numbers[i])
-  }
-
-  reverseAndPrintNumbers(n, numbers)
+	fmt.Println("Введите количество чисел:")
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+	n, _ := strconv.Atoi(scanner.Text())
+	numbers := make([]int, n)
+	for i := 0; i < n; i++ {
+		fmt.Printf("Введите число #%d:\n", i+1)
+		scanner.Scan()
+		numbers[i], _ = strconv.Atoi(scanner.Text())
+	}
+	reverseAndPrintNumbers(numbers)
 }

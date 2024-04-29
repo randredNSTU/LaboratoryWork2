@@ -1,34 +1,33 @@
-import java.util.Scanner
+import kotlin.math.floor
 
+// Функция для переворачивания числа
 fun reverseNumber(num: Int): Int {
-    var reversed = 0
-    var temp = num
-    while (temp != 0) {
-        reversed = reversed * 10 + temp % 10
-        temp /= 10
-    }
     var result = 0
-    while (reversed != 0) {
-        result = result * 10 + reversed % 10
-        reversed /= 10
+    var number = num
+    while (number != 0) {
+        val digit = number % 10
+        if (result != 0 || digit != 0) {
+            result = result * 10 + digit
+        }
+        number = number / 10
     }
     return result
 }
 
-fun reverseAndPrintNumbers(n: Int, numbers: IntArray) {
-    for (i in 0 until n) {
-        println(reverseNumber(numbers[i]))
+// Функция для переворачивания каждого числа в списке и вывода без ведущих нулей
+fun reverseAndPrintNumbers(numbers: List<Int>) {
+    numbers.forEach {
+        println(reverseNumber(it))
     }
 }
 
 fun main() {
-    val scanner = Scanner(System.`in`)
-    print("Введите количество чисел: ")
-    val n = scanner.nextInt()
-    val numbers = IntArray(n)
-    for (i in 0 until n) {
-        print("Введите число #${i + 1}: ")
-        numbers[i] = scanner.nextInt()
+    println("Введите количество чисел:")
+    val n = readLine()!!.toInt() // Запрос количества чисел
+    val numbers = mutableListOf<Int>()
+    for (i in 1..n) {
+        println("Введите число #$i:")
+        numbers.add(readLine()!!.toInt()) // Ввод каждого числа
     }
-    reverseAndPrintNumbers(n, numbers)
+    reverseAndPrintNumbers(numbers) // Переворачиваем и выводим числа без ведущих нулей
 }

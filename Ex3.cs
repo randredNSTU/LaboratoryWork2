@@ -1,26 +1,24 @@
 using System;
+using System.Collections.Generic;
 
 class Program
 {
     static int ReverseNumber(int num)
     {
-        int reversed = 0;
-        int temp = num;
-        while (temp != 0)
-        {
-            reversed = reversed * 10 + temp % 10;
-            temp /= 10;
-        }
         int result = 0;
-        while (reversed != 0)
+        while (num != 0)
         {
-            result = result * 10 + reversed % 10;
-            reversed /= 10;
+            int digit = num % 10;
+            if (result != 0 || digit != 0)
+            {
+                result = result * 10 + digit;
+            }
+            num /= 10;
         }
         return result;
     }
 
-    static void ReverseAndPrintNumbers(int n, int[] numbers)
+    static void ReverseAndPrintNumbers(int n, List<int> numbers)
     {
         for (int i = 0; i < n; i++)
         {
@@ -28,21 +26,16 @@ class Program
         }
     }
 
-    static void Main(string[] args)
+    static void Main()
     {
         Console.WriteLine("Введите количество чисел:");
-        if (int.TryParse(Console.ReadLine(), out int n))
+        int n = int.Parse(Console.ReadLine());
+        List<int> numbers = new List<int>();
+        for (int i = 0; i < n; i++)
         {
-            int[] numbers = new int[n];
-            for (int i = 0; i < n; i++)
-            {
-                Console.Write($"Введите число #{i + 1}: ");
-                if (int.TryParse(Console.ReadLine(), out int num))
-                {
-                    numbers[i] = num;
-                }
-            }
-            ReverseAndPrintNumbers(n, numbers);
+            Console.WriteLine($"Введите число #{i + 1}:");
+            numbers.Add(int.Parse(Console.ReadLine()));
         }
+        ReverseAndPrintNumbers(n, numbers);
     }
 }

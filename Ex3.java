@@ -2,16 +2,13 @@ import java.util.Scanner;
 
 public class Main {
     public static int reverseNumber(int num) {
-        int reversed = 0;
-        int temp = num;
-        while (temp != 0) {
-            reversed = reversed * 10 + temp % 10;
-            temp /= 10;
-        }
         int result = 0;
-        while (reversed != 0) {
-            result = result * 10 + reversed % 10;
-            reversed /= 10;
+        while (num != 0) {
+            int digit = num % 10;
+            if (result != 0 || digit != 0) {
+                result = result * 10 + digit;
+            }
+            num /= 10;
         }
         return result;
     }
@@ -24,11 +21,11 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Введите количество чисел: ");
+        System.out.println("Введите количество чисел:");
         int n = scanner.nextInt();
         int[] numbers = new int[n];
         for (int i = 0; i < n; i++) {
-            System.out.print("Введите число #" + (i + 1) + ": ");
+            System.out.printf("Введите число #%d:\n", i + 1);
             numbers[i] = scanner.nextInt();
         }
         reverseAndPrintNumbers(n, numbers);
